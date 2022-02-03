@@ -5,16 +5,15 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    @user = @book.user
-    @new_book = Book.new
+    # @user = @book.user サンプルコードなし
+    
+    # @new_book = Book.new サンプルコードなし
     @book_comment = BookComment.new
   end
 
   def index
     @books = Book.all
     @book = Book.new
-    # @book = Book.new
-    # @book = Book.find(params[:id])
   end
 
   def create
@@ -29,11 +28,13 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @book = Book.find(params[:id])
+    # @book = Book.find(params[:id])
+    #サンプルコードなし
   end
 
   def update
     @book = Book.find(params[:id])
+    #サンプルコードなし
     if @book.update(book_params)
       redirect_to book_path(@book), notice: "You have updated book successfully."
     else
@@ -43,6 +44,7 @@ class BooksController < ApplicationController
 
   def destroy
     @book = Book.find(params[:id])
+    #サンプルコードなし
     @book.destroy
     redirect_to books_path
   end

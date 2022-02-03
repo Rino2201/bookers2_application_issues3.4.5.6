@@ -14,11 +14,13 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
+    #サンプルコードなし
   end
 
   def update
     @user = User.find(params[:id])
+    #サンプルコードなし
     if @user.update(user_params)
       redirect_to user_path(@user), notice: "You have updated user successfully."
     else

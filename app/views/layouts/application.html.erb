@@ -6,22 +6,30 @@
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!--↑ サンプルコード参照-->
+    <!--<-%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>-->
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
-  <body class="d-flex flex-column">
+  <body>
+  <!--<body class="d-flex flex-column">-->
     <%= render 'layouts/header' %>
     <main>
-      <% if flash[:notice] %>
-        <div class="flash">
-          <p style= "color:green">
-            <%= flash[:notice] %>
-          </p>
-        </div>
-      <% end %>
-      <div class="container">
-        <%= yield %>
-      </div>
+      <p id="notice"><%= notice %></p>
+      <%= yield %>
+      <!--↑ サンプルコード参照、シンプル化-->
+
+      <!--<-% if flash[:notice] %>-->
+      <!--  <div class="flash">-->
+      <!--    <p style= "color:green">-->
+      <!--      <-%= flash[:notice] %>-->
+      <!--    </p>-->
+      <!--  </div>-->
+      <!--<-% end %>-->
+      <!--<div class="container">-->
+      <!--  <-%= yield %>-->
+      <!--</div>-->
     </main>
     <%= render 'layouts/footer' %>
   </body>
