@@ -1,3 +1,9 @@
 <h1>Follower Users</h1>
 
-<%= render "follow_list", users: @users %>
+<% if @users.exists? %>
+  <%= render '/users/index', users: @users %>
+<% else %>
+  <p>ユーザーはいません</p>
+<% end %>
+
+<!--<-%= render "follow_list", users: @users %>-->

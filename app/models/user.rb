@@ -17,6 +17,16 @@ class User < ApplicationRecord
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
 
+  #以下サンプルコード
+  # # 自分がフォローされる（被フォロー）側の関係性
+  # has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  # # 被フォロー関係を通じて参照→自分をフォローしている人
+  # has_many :followers, through: :reverse_of_relationships, source: :follower
+
+  # # 自分がフォローする（与フォロー）側の関係性
+  # has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  # # 与フォロー関係を通じて参照→自分がフォローしている人
+  # has_many :followings, through: :relationships, source: :followed
 # ------------------------------------------------------------------------
 
   has_one_attached :profile_image
@@ -29,18 +39,30 @@ class User < ApplicationRecord
   end
  # ------------------------------------------------------------------------
   #フォローした時の処理
-  def follow(user_id)
-    relationships.create(followed_id: user_id)
+  def follow(user)
+    relationships.create(followed_id: user.id)
   end
 
   #フォローを外す時の処理
-  def unfollow(user_id)
-    relationships.find_by(followed_id: user_id).destroy
+  def unfollow(user)
+    relationships.find_by(followed_id: user.id).destroy
   end
 
   #フォローしているか判定
   def following?(user)
     followings.include?(user)
+  end
+# ------------------------------------------------------------------------
+  def self.search_for(content, method)
+    if method == 'perfect'
+      User.where(name: content)
+    elsif method == 'forward'
+      User.where('title LIKE ?', content+'%')
+    elsif method == 'backward'
+      User.where('title LIKE ?','%'+content)
+    else
+      User.where('title LIKE ?','%'+content+'%')
+    end
   end
 # ------------------------------------------------------------------------
 
