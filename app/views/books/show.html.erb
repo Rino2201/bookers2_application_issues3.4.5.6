@@ -25,8 +25,10 @@
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
           <td>コメント数：<%= @book.book_comments.count %></td>
-
-          <td><%= render "favorites/btn", book: @book %></td>
+          <td class="favorite-btn">
+          <!--jsで非同期のためのid付け-->
+            <%= render "favorites/favorite-btn", book: @book %>
+          </td>
           <!--↓favorites/_btn.html.erbで共通化-->
           <!--<td>-->
           <!--  <-% if @book.favorited_by?(current_user) %>-->
@@ -62,8 +64,9 @@
           <!--</td>-->
         </tr>
       </table>
-
-      <%= render "book_comments/index", book: @book %>
+      <div id="comments_area">
+        <%= render "book_comments/index", book: @book %>
+      </div>
       <!--↑ renderで共通化、シンプルで見やすい、エラーが減る-->
       <!--<div>-->
       <!--  <-% @book.book_comments.each do |book_comment| %>-->
@@ -76,7 +79,9 @@
       <!--  <-% end %>-->
       <!--</div>-->
 
-      <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
+      <div class="new-comment">
+        <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
+      </div>
       <!--↑ renderで共通化、シンプルで見やすい、エラーが減る-->
       <!--<div>-->
       <!--  <-%= form_with model: [@book,@book_comment], local: true do |f| %>-->
